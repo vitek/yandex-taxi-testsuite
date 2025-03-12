@@ -1,6 +1,6 @@
 import pytest
 
-from testsuite.utils import matching
+from testsuite import matching
 
 
 def test_capture():
@@ -27,3 +27,11 @@ def test_capture_failure():
     with pytest.raises(matching.NoValueCapturedError):
         capture_foo.value
     assert capture_foo.values_list == []
+
+
+def test_instance():
+    cap = matching.Capture(123)
+    assert cap == cap
+
+    assert matching.Capture(123) == matching.Capture(123)
+    assert matching.Capture(123) != matching.Capture(321)
